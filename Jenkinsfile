@@ -41,7 +41,9 @@ def create_tag(new_tag, remote_name, repo_name){
     sh(command)
     println "Push tag $final_tag on $remote_name"
     command = "git push $remote_name $final_tag"
-    sh(command)
+    sshagent(credentialsId){
+        sh(command)
+    }
 }
 
 
