@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 def get_last_tag(repo_name){
     println("Get Last Tag of $repo_name")
-    str_list = sh("git describe --abbrev=0 --tags").trim().split('\\.')
+    str_list = sh(script: "git describe --abbrev=0 --tags", returnStdout: True).trim().split('\\.')
     int_list = []
     for (items in str_list) {
         int_list.add(items.toInteger())
