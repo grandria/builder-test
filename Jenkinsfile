@@ -56,8 +56,10 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                list_update = update_tag(get_last_tag(repo_name))
-                create_tag(list_update, remote_name, repo_name)
+                script {
+                    list_update = update_tag(get_last_tag(repo_name))
+                    create_tag(list_update, remote_name, repo_name)
+                }
             }
         }
         stage('Test') {
