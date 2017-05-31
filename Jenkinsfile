@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 def get_last_tag(repo_name){
     println("Get Last Tag of $repo_name")
-    str_list = "git describe --abbrev=0 --tags".execute().text.trim().split('\\.')
+    str_list = sh("git describe --abbrev=0 --tags").text.trim().split('\\.')
     int_list = []
     for (items in str_list) {
         int_list.add(items.toInteger())
@@ -36,10 +36,10 @@ def create_tag(new_tag, remote_name, repo_name){
     def final_tag = "${new_tag[0]}.${new_tag[1]}.${new_tag[2]}"
     println "Create Local Tag $final_tag"
     def command = "git tag -a $final_tag -m \"Tag: $final_tag for $repo_name\""
-    command.execute()
+    sh(command)
     println "Push tag $final_tag on $remote_name"
     command = "git push $remote_name $final_tag"
-    command.execute()
+    sh(command)
 }
 
 
