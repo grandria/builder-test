@@ -6,6 +6,7 @@ def get_last_tag(repo_name){
     for (items in str_list) {
         int_list.add(items.toInteger())
     }
+    println "last tag is $int_list"
     int_list
 }
 
