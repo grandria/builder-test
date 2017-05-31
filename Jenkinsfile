@@ -33,6 +33,7 @@ def update_tag(version_list){
 }
 
 def create_tag(new_tag, remote_name, repo_name){
+    sh("git config --global user.name \"grandria\"")
     def final_tag = "${new_tag[0]}.${new_tag[1]}.${new_tag[2]}"
     println "Create Local Tag $final_tag"
     def command = "git tag -a $final_tag -m \"Tag: $final_tag for $repo_name\""
