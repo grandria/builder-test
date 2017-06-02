@@ -39,10 +39,14 @@ def create_tag(new_tag, remote_name, repo_name){
     println "Create Local Tag $final_tag"
     def command = "git tag -a $final_tag -m \"Tag: $final_tag for $repo_name\""
     sh(command)
-    println "Push tag $final_tag on $remote_name"
-    command = "git push $remote_name $final_tag"
-    sshagent(credentials: ['grandria-git-key']){
-        sh(command)
+    try {
+        println "Push tag $final_tag on $remote_name"
+        command = "git push $remote_name $final_tag"
+        sshagent(credentials: ['grandria-git-key']){
+            sh(command)
+        }
+    } catch(Exception e) {
+        error "Pushing new tags failed"
     }
 }
 
