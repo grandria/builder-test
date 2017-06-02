@@ -1,12 +1,15 @@
 #!/usr/bin/env groovy
+
 def get_last_tag(repo_name){
-    println("Get Last Tag of $repo_name")
-    str_list = sh(script: "git describe --abbrev=0 --tags", returnStdout: true).trim().split('\\.')
-    int_list = []
-    for (items in str_list) {
-        int_list.add(items.toInteger())
+    if ((sh(script: "git describe --abbrev=0 --tags", returnStatus: true) == 0){
+        println("Get Last Tag of $repo_name")
+        str_list = sh(script: "git describe --abbrev=0 --tags", returnStdout: true).trim().split('\\.')
+        int_list = []
+        for (items in str_list) {
+            int_list.add(items.toInteger())
+        }
+        println "last tag is $int_list"
     }
-    println "last tag is $int_list"
     int_list
 }
 
@@ -40,8 +43,8 @@ def create_tag(new_tag, remote_name, repo_name){
     def command = "git tag -a $final_tag -m \"Tag: $final_tag for $repo_name\""
     sh(command)
     try {
-        println "Push tag $final_tag on $remote_name:master"
-        command = "git push $remote_name $final_tag:master"
+        println "Push tag $final_tag on $remote_name"
+        command = "git push $remote_name $final_tag"
         sshagent(credentials: ['grandria-git-key']){
             sh(command)
         }
