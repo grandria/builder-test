@@ -40,8 +40,8 @@ def create_tag(new_tag, remote_name, repo_name){
     def command = "git tag -a $final_tag -m \"Tag: $final_tag for $repo_name\""
     sh(command)
     try {
-        println "Push tag $final_tag on $remote_name"
-        command = "git push $remote_name $final_tag"
+        println "Push tag $final_tag on $remote_name:master"
+        command = "git push $remote_name $final_tag:master"
         sshagent(credentials: ['grandria-git-key']){
             sh(command)
         }
