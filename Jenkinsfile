@@ -46,17 +46,13 @@ def create_tag(new_tag, remote_name, repo_name){
             sh(command)
         }
     } catch(Exception e) {
-        error "Pushing new tags failed"
+        error "Pushing new tags"
     }
 }
 
 
 def remote_name = "origin"
 def repo_name = "Helloworld"
-
-//list_update = update_tag(get_last_tag(repo_name))
-//create_tag(list_update, remote_name, repo_name)
-
 
 pipeline {
     agent any
@@ -66,8 +62,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 script {
-                    list_update = update_tag(get_last_tag(repo_name))
-                    create_tag(list_update, remote_name, repo_name)
+                    create_tag(update_tag(get_last_tag(repo_name)), remote_name, repo_name)
                 }
             }
         }
