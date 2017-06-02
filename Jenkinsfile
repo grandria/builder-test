@@ -60,7 +60,7 @@ def create_tag(new_tag, remote_name, repo_slug){
 
 
 def remote_name = "origin"
-def repo_slu = "Helloworld"
+def repo_slug = "Helloworld"
 
 pipeline {
     agent any
