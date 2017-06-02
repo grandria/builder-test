@@ -86,6 +86,11 @@ pipeline {
                 echo 'Deploying....'
             }
         }
+        stage('Clean UP') {
+            steps {
+                cleanWs()
+            }
+        }
     }
 }
 
