@@ -6,13 +6,13 @@ def get_last_tag(repo_slug){
         println("Get Last Tag of $repo_slug")
         str_list = sh(script: "git describe --abbrev=0 --tags", returnStdout: true).trim().split('\\.')
         int_list = []
-        // if empty so initialize to 1.0.0
-        if (int_list == ""){
-            int_list = ['1','0','0']
-        }
         for (items in str_list) {
             int_list.add(items.toInteger())
         }
+    } else {
+        int_list = []
+        // if empty so initialize to 1.0.0
+        int_list = [1,0,0]
     }
     println "last tag is $int_list"
     int_list
